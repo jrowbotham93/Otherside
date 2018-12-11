@@ -5,7 +5,7 @@ class ContentBox extends React.Component{
     render(){
         return(
             <div className="content-box">
-            <p>James</p>
+            
             </div>
         )
     }}

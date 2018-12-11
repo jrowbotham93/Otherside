@@ -1,14 +1,6 @@
-import React , {Component} from 'react'
+import React from 'react'
 import './RandomiseButton.css'
 
-class RandomiseButton extends Component{
-    render(){
-        return(
-            <div className="RandomiseButton">
-            <button type="submit" placeholder="randomise"></button>
-            </div>
-        )
-    }
-}
-    
-    export default RandomiseButton
+const RandomiseButton = ({ text, method, classes }) => <button className={classes} onClick={method}>{text}</button>
+
+export default RandomiseButton
