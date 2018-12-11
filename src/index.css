@@ -6,9 +6,50 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  width: 100%;
+  height: 100vh;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: 50px repeat(1, 700px) 100px;
+  grid-template-areas: 
+    "header header"
+    "item-a item-b"
+    "footer footer";
+}
+
+.header-container {
+  grid-area: header;
+  background-image:linear-gradient(155deg, #ffffff 54%, #111111 100%);
+}
+.left-container-a {
+  grid-area: item-a;
+  background-image:linear-gradient(155deg, #ec6464 54%, #111111 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.right-container-a  {
+  grid-area: item-b;
+  background-image:linear-gradient(155deg, #706ef0 54%, #111111 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.footer-container{
+  grid-area: footer;
+  background-image:linear-gradient(155deg, #ffffff 54%, #111111 100%);
+}
+
