@@ -5,6 +5,8 @@ class ContentBox extends React.Component{
     render(){
         return(
             <div className="content-box">
+
+            
             
             </div>
         )
