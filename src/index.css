@@ -53,3 +53,17 @@ code {
   background-image:linear-gradient(155deg, #ffffff 54%, #111111 100%);
 }
 
+.content-leftWing{
+  display: flex;
+  justify-content: center;
+  height:50%;
+  width: 75%;
+  overflow: scroll;
+  text-align: center;
+  background-image:linear-gradient(155deg, #ffffff 54%, #111111 100%);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+  "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue";
+}
+.button-leftWing{
+ 
+  background-color: #ec6464;}

@@ -2,65 +2,99 @@ import React from 'react';
 import './App.css';
 import axios from 'axios'
 
-import ContentBox from './Components/ContentBox.js' //call these in the render below (these are modules) to render on html
-import RandomiseButton from './Components/RandomiseButton.js'
 
-
+// import ContentBox from './Components/ContentBox.js' //call these in the render below (these are modules) to render on html
+// import RandomiseButton from './Components/RandomiseButton.js'
 
 
 class App extends React.Component {
 
-    state = { 
-      leftWing: []
-		}
+      state = { 
+      articles: [],
+      name: '',
+      description: '',
+      url: '' 
+    }
   
     handleButtonClick = () => {
-      // this.setState({ loading: true })
-        axios.get('/api/leftWing').then((res) => {
-          this.setState({ leftWing: res.data })
-          // console.log(this.state.leftWing)
-                })
+      axios.get(`https://newsapi.org/v2/sources?language=en&apiKey=c4690b746a5746028a1830ccf185fcce`
+        ).then((res) => {
+        this.setState({ articles: res.data.sources})
+          console.log(res.data)
+      }
+      )}     
 
-            }
-    
+    handleGetSources = () => {
+      axios.get('/api/getSource').then((res) => {
+        console.log(res.data)
+      })
+    }
+    handleNameUpdate = (evt) => {
+      this.setState({
+        name: evt.target.value
+      })
+    }
+    handleDescriptionUpdate = (evt) => {
+      this.setState({
+        description: evt.target.value
+      })
+    }
+    handleUrlUpdate = (evt) => {
+      this.setState({
+        url: evt.target.value
+      })
+    }
+    handlePostSource = (evt) => {
+      evt.preventDefault()
+      axios.post('/api/addSource', {
+        name: this.state.name,
+        description: this.state.description,
+        url: this.state.url
+      }).then((res) => {
+        console.log(res)
+      })}
+
+             
   render(){
-    //"pancakes" is the name of each individual object, 
-    //inside the "leftWing" array (which is an array of objects)
-
-
-
-    // (math.floor)math.random -1 (in order to call a random topix)
-
-
-  const display = this.state.leftWing.map((pancakes, index)=>{
-    console.log(`this got called`)
-    return <p key={index}>{pancakes.Source} <br /> {pancakes.URL}</p>   //
-  }) 
+    const display = this.state.articles.map((prop, index)=>{
+       return <p key={index}>{prop.name}<br></br>{prop.description} <br></br>{prop.url}</p>      
+     }) 
     return(
       <div className='App'>
         <section className="grid-container">
           <div className="header-container"></div>
-            <div className="left-container-a">
-              
 
-                {/* <RandomiseButton
-                classes={`RandomiseButton`}
-                method={this.handleButtonClick}
-                text={`Get new news`}
-                />  */}
-                <div>
-                  <button onClick={this.handleButtonClick}>this is another button</button>
-                  {this.state.leftWing ? display : "something"}
-                </div> 
-              
-              </div>
-          
-              <div className="right-container-a">
-              <ContentBox/>
-              <RandomiseButton/>  
-              </div>
-            <div className="footer-container">
+          <div className="left-container-a">
+            <button className="button-leftWing" onClick={this.handleButtonClick}>Get Sources</button>
+            <div className="content-leftWing">
+              <ul>{this.state.articles ? display: "nothing"}</ul>
+
+            </div> 
           </div>
+          <div className="right-container-a">  
+              <form onSubmit={(e) => this.handlePostSource(e)}>
+                <input
+                  type='text'
+                  placeholder='name'
+                  value={this.state.name}
+                  onChange={(e) => this.handleNameUpdate(e)}
+                />
+                <input
+                  type='text'
+                  placeholder='source'
+                  value={this.state.description}
+                  onChange={(e) => this.handleDescriptionUpdate(e)}
+                />
+                <input
+                  type='text'
+                  placeholder='url'
+                  value={this.state.url}
+                  onChange={(e) => this.handleUrlUpdate(e)}
+                />
+              <button>Add Source</button>
+            </form>
+          </div>   
+            <div className="footer-container"></div>
         </section>
       </div>
     )}
